@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+	<html ng-app="CurrencyApp">
+		<head>
+			<title>Angular Currency App</title>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+			<script src="./main.js"></script>
+		</head>
+		<body>
+      <h1>Convert</h1>
+  		<div ng-controller="MainController">
+        <input ng-model="value" type="number" min="1"/>
+        <select ng-model="from" ng-options="rate.currency for rate in rates track by rate.value"></select>
+        to:
+        <select ng-model="to" ng-options="rate.currency for rate in rates track by rate.value"></select>
+        <h2 ng-show="value && from && to">
+          {{from.currency}} {{value}} = {{to.currency}} {{value | convert:from.value:to.value}}
+        </h2>
+        <small><p ng-show="updated">Exchange rate date: {{updated}}</p></small>
+			</div>
+		</body>
+</html>
