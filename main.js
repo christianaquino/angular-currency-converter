@@ -9,8 +9,7 @@ app.controller("MainController", ["$scope", "$http", function($scope, $http) {
     $scope.rates = Array();
 
     for (key in response.data.rates) {
-      var rate = {currency: key, value: response.data.rates[key]};
-      $scope.rates.push(rate);
+      $scope.rates.push({currency: key, value: response.data.rates[key]});
     }
 
     $scope.rates.push({currency: "USD", value: 1});
