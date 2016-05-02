@@ -1,30 +1,32 @@
 var app = angular.module("CurrencyApp", []);
 
 app.controller("MainController", ["$scope", "$http", function($scope, $http) {
-  $http({
-	  method: 'GET',
-	  url: "http://api.fixer.io/latest?base=USD"
-	}).then(function successCallback(response) {
-    $scope.updated = response.data.date;
-    $scope.rates = Array();
+    $http({
+        method: 'GET',
+        url: "http://api.fixer.io/latest?base=USD"
+    }).then(function successCallback(response) {
+        $scope.updated = response.data.date;
+        $scope.rates = Array();
+        for (key in response.data.rates) {
+            $scope.rates.push({
+                currency: key,
+                value: response.data.rates[key]
+            });
+        }
 
-    for (key in response.data.rates) {
-      $scope.rates.push({currency: key, value: response.data.rates[key]});
-    }
-
-    $scope.rates.push({currency: "USD", value: 1});
-    $scope.currencies = Object.keys($scope.rates);
-
-	}, function errorCallback(response) {
-		$scope.rates = null;
-    $scope.currencies = null;
-    $scope.updated = null;
-	});
+        $scope.rates.push({
+            currency: "USD",
+            value: 1
+        });
+    }, function errorCallback(response) {
+        $scope.rates = null;
+        $scope.updated = null;
+    });
 }]);
 
 app.filter("convert", function() {
-  return function(value, currencyFrom, currencyTo) {
-    result = value / currencyFrom * currencyTo;
-    return result.toFixed(2);
-  }
+    return function(value, currencyFrom, currencyTo) {
+        result = value / currencyFrom * currencyTo;
+        return result.toFixed(2);
+    }
 });
