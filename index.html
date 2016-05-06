@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<title>Angular Currency App</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
-	<!-- Angular Material requires Angular.js Libraries -->
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+    <head>
+        <title>Angular Currency App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
 
-	<!-- Angular Material Library -->
-	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
-	<script src="main.js"></script>
-</head>
+        <!-- Angular Material Library -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+        <script src="main.js"></script>
+    </head>
 
-<body ng-app="CurrencyApp" ng-cloak>
-	<div layout=row layout-align="center">
-		<div layout="column" flex="30" flex-xs="100">
-			<md-toolbar>
-				<div class="md-toolbar-tools">
-					<h2 class="md-flex">Currency Converter</h2>
-				</div>
-			</md-toolbar>
-			<md-content flex layout-padding>
-				<div ng-controller="MainController">
-						<div>
-							<md-input-container class="md-block" flex-gt-sm>
-                <label>Convert</label>
-								<input ng-model="value" type="number" min="1" />
-							</md-input-container>
-						</div>
-						<div>
-							<md-input-container class="md-block" flex-gt-sm>
-								<md-select ng-model="from">
-                  <label>From</label>
-									<md-option ng-repeat="rate in rates" value="{{rate.value}}">
-										{{rate.currency}}
-									</md-option>
-								</md-select>
-							</md-input-container>
-							<md-input-container class="md-block" flex-gt-sm>
-                <label>To</label>
-                <md-select ng-model="to">
-									<md-option ng-repeat="rate in rates" value="{{rate.value}}">
-										{{rate.currency}}
-									</md-option>
-								</md-select>
-							</md-input-container>
-						</div>
-					<h2 ng-show="value && from && to">
-                {{value}} = {{value | convert:from:to}}
-            </h2>
-					<small>
-                <p ng-show="updated">Exchange rate date:
-                    {{updated}}</p>
-            </small>
-				</div>
-			</md-content>
-		</div>
-	</div>
-</body>
+    <body ng-app="CurrencyApp" ng-cloak>
+        <div layout=row layout-align="center">
+            <div layout="column" flex="30" flex-xs="100">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">Currency Converter</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-controller="MainController">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Convert</label>
+                            <input ng-model="value" type="number" min="1"/>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>From</label>
+                            <md-select ng-model="currencyFrom">
+                                <md-option ng-repeat="rate in rates" ng-value="rate">
+                                    {{rate.currency}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>To</label>
+                            <md-select ng-model="currencyTo">
+                                <md-option ng-repeat="rate in rates" ng-value="rate">
+                                    {{rate.currency}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div class="md-title" ng-show="value && currencyFrom && currencyTo">
+                            {{currencyFrom.currency}}
+                            {{value}}
+                            =
+                            {{currencyTo.currency}}
+                            {{value | convert:currencyFrom.value:currencyTo.value}}
+                        </div>
+                        <div class="md-caption">
+                            <p ng-show="updated">Exchange rate date:
+                                {{updated}}</p>
+                        </div>
+                    </div>
+                </md-content>
+            </div>
+        </div>
+    </body>
 
 </html>
