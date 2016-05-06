@@ -1,4 +1,4 @@
-var app = angular.module("CurrencyApp", []);
+var app = angular.module("CurrencyApp", ["ngMaterial"]);
 
 app.controller("MainController", ["$scope", "$http", function($scope, $http) {
     $http({
@@ -24,6 +24,7 @@ app.controller("MainController", ["$scope", "$http", function($scope, $http) {
 
 app.filter("convert", function() {
     return function(value, currencyFrom, currencyTo) {
+      console.log(currencyFrom, currencyTo, value);
         result = value / currencyFrom * currencyTo;
         return result.toFixed(2);
     }

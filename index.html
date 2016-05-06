@@ -1,32 +1,65 @@
 <!DOCTYPE html>
-<html ng-app="CurrencyApp">
+<html lang="en">
 
 <head>
 	<title>Angular Currency App</title>
-	<link rel="stylesheet" type="text/css" href="styles.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+
+	<!-- Angular Material Library -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 	<script src="main.js"></script>
 </head>
 
-<body>
-	<div class="converter">
-		<h1>Convert</h1>
-		<div ng-controller="MainController">
-			<input ng-model="value" type="number" min="1" />
-			<select ng-model="from" ng-options="rate.currency for rate in rates track by rate.value"></select>
-			to:
-			<select ng-model="to" ng-options="rate.currency for rate in rates track by rate.value"></select>
-			<h2 ng-show="value && from && to">
-                {{from.currency}}
-                {{value}}
-                =
-                {{to.currency}}
-                {{value | convert:from.value:to.value}}
+<body ng-app="CurrencyApp" ng-cloak>
+	<div layout=row layout-align="center">
+		<div layout="column" flex="30" flex-xs="100">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2 class="md-flex">Currency Converter</h2>
+				</div>
+			</md-toolbar>
+			<md-content flex layout-padding>
+				<div ng-controller="MainController">
+
+						<div>
+							<md-input-container class="md-block" flex-gt-sm>
+								<input ng-model="value" type="number" min="1" />
+							</md-input-container>
+						</div>
+
+
+						<div>
+							<md-input-container class="md-block" flex-gt-sm>
+								<md-select ng-model="from">
+									<md-option ng-repeat="rate in rates" value="{{rate.value}}">
+										{{rate.currency}}
+									</md-option>
+								</md-select>
+							</md-input-container>
+							to:
+							<md-input-container class="md-block" flex-gt-sm>
+								<md-select ng-model="to">
+									<md-option ng-repeat="rate in rates" value="{{rate.value}}">
+										{{rate.currency}}
+									</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+					<h2 ng-show="value && from && to">
+                {{value}} = {{value | convert:from:to}}
             </h2>
-			<small>
+					<small>
                 <p ng-show="updated">Exchange rate date:
                     {{updated}}</p>
             </small>
+				</div>
+			</md-content>
 		</div>
 	</div>
 </body>
