@@ -26,25 +26,24 @@
 			</md-toolbar>
 			<md-content flex layout-padding>
 				<div ng-controller="MainController">
-
 						<div>
 							<md-input-container class="md-block" flex-gt-sm>
+                <label>Convert</label>
 								<input ng-model="value" type="number" min="1" />
 							</md-input-container>
 						</div>
-
-
 						<div>
 							<md-input-container class="md-block" flex-gt-sm>
 								<md-select ng-model="from">
+                  <label>From</label>
 									<md-option ng-repeat="rate in rates" value="{{rate.value}}">
 										{{rate.currency}}
 									</md-option>
 								</md-select>
 							</md-input-container>
-							to:
 							<md-input-container class="md-block" flex-gt-sm>
-								<md-select ng-model="to">
+                <label>To</label>
+                <md-select ng-model="to">
 									<md-option ng-repeat="rate in rates" value="{{rate.value}}">
 										{{rate.currency}}
 									</md-option>
