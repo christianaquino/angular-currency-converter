@@ -20,12 +20,18 @@ app.controller("MainController", ["$scope", "$http", function($scope, $http) {
         $scope.rates = null;
         $scope.updated = null;
     });
+
+    $scope.updateResult = function() {
+        if ($scope.value && $scope.currencyFrom.value && $scope.currencyTo.value) {
+            var result = $scope.value / $scope.currencyFrom.value * $scope.currencyTo.value;
+            $scope.result = parseFloat(result.toFixed(3));
+        }
+    }
 }]);
 
 app.filter("convert", function() {
     return function(value, currencyFrom, currencyTo) {
-      console.log(currencyFrom, currencyTo, value);
         result = value / currencyFrom * currencyTo;
-        return result.toFixed(2);
+        return result.toFixed(3);
     }
 });
